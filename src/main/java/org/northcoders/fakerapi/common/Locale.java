@@ -1,4 +1,4 @@
-package org.northcoders.common;
+package org.northcoders.fakerapi.common;
 
 public enum Locale {
     en_US,

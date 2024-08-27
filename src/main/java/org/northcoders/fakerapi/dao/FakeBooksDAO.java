@@ -1,7 +1,7 @@
-package org.northcoders.dao;
+package org.northcoders.fakerapi.dao;
 
-import org.northcoders.common.Locale;
-import org.northcoders.model.Response;
+import org.northcoders.fakerapi.common.Locale;
+import org.northcoders.fakerapi.model.Response;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 

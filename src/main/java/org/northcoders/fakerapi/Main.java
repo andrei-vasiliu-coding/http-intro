@@ -1,7 +1,7 @@
-package org.northcoders;
+package org.northcoders.fakerapi;
 
-import org.northcoders.common.Locale;
-import org.northcoders.dao.FakeBooksDAO;
+import org.northcoders.fakerapi.common.Locale;
+import org.northcoders.fakerapi.dao.FakeBooksDAO;
 
 public class Main {
     public static void main(String[] args) {

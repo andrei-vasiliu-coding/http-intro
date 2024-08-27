@@ -1,4 +1,4 @@
-package org.northcoders.model;
+package org.northcoders.fakerapi.model;
 
 import java.util.List;
 
