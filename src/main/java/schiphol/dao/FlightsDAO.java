@@ -1,7 +1,9 @@
 package schiphol.dao;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.reactive.function.client.WebClient;
 import schiphol.model.Flight;
+import schiphol.model.Flights;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,11 +19,12 @@ public class FlightsDAO {
 //    private String apiKey;
 
     public FlightsDAO() {
-        client = WebClient.create("https://api.schiphol.nl/public-flights/flights");
+        client = WebClient.create("https://api.schiphol.nl");
+        initalize();
     }
 
 
-    void initalize() {
+    private void initalize() {
         properties = new Properties();
 
         String configFilePath = "config//flight.properties";
@@ -48,7 +51,24 @@ public class FlightsDAO {
         return properties.getProperty("app_key");
     }
 
-//    public List<Flight> getAllFlights() {
-//
-//    }
+    public List<Flight> getAllFlights() {
+        ResponseEntity<Flights> response = client.get()
+                .uri("/public-flights/flights")
+                .headers(httpHeaders -> {
+                    httpHeaders.set("Accept", "application/json");
+                    httpHeaders.set("app_id", getAppId());
+                    httpHeaders.set("app_key", getApiKey());
+                    httpHeaders.set("ResourceVersion", "v4");
+                })
+                .retrieve()
+                .toEntity(Flights.class)
+                .block();
+
+        if (response == null || !response.hasBody()) {
+            throw new RuntimeException("Something went wrong while reaching out to Schiphol Flights API!");
+        }
+
+        // else
+        return response.getBody().flights();
+    }
 }
